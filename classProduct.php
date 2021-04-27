@@ -1,6 +1,6 @@
 <?php
 
-interface iYandex {
+interface iProduct {
   
   // ищем продукт в БД
   public function searchProd($barcode);
@@ -21,7 +21,7 @@ interface iYandex {
 
 
 
-class product implements iYandex {
+class product implements iProduct {
 
     //свойства
 		public $id;
