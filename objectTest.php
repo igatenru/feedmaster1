@@ -21,7 +21,7 @@ xmlLog($file_name, "Всего категорий загружено: $catTotal.
 
 echo "</br></br>";
 
-// логируем сообщения
+// логируем сообщения 
 function xmlLog($file_name, $message) {
     $logFile = fopen('logs/log_'.$file_name.'.txt', 'a') or die("Не удалось создать файл");
     fwrite($logFile, date('d.m.Y H:i:s').' — '."$message".PHP_EOL);
