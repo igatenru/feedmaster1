@@ -30,6 +30,7 @@ function xmlLog($file_name, $message) {
 
 
 
+
 // условия доставки глобальные 
 $deliveryOptions = "delivery-options";
 
