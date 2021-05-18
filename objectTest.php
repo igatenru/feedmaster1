@@ -30,7 +30,7 @@ function xmlLog($file_name, $message) {
 
 // подготовка наименования товара, не работает проверка вхождения, доделать. Решить проблему с пустыми значениями.
 
-function prepareTitle($typePrefix, $brand, $productTitle, $productColor) {
+public function prepareTitle($typePrefix, $brand, $productTitle, $productColor) {
     if (stripos($productTitle, $brand) === false) {
         return $typePrefix . ' ' . $brand . ' ' . $productTitle . ', ' . $productColor;
     }
@@ -123,6 +123,8 @@ foreach ($xml->shop->offers->offer as $offer) {
         $typePrefix = $offer->typePrefix;
     }
 
+    $newTitle = prepareTitle($typePrefix, $brand, $productTitle, $productColor);
+
     $id = $offer['id'];
     $groupId = $offer['group_id'];
     
@@ -182,7 +184,7 @@ foreach ($xml->shop->offers->offer as $offer) {
     // Записываем данные по каждому item
 
     fwrite($newFeed, '<item>'.PHP_EOL);
-    fwrite($newFeed, "<title>".prepareTitle($typePrefix, $brand, $productTitle, $productColor)."</title>".PHP_EOL);
+    fwrite($newFeed, "<title>$newTitle</title>".PHP_EOL);
     fwrite($newFeed, "<link>{$offer->url}</link>".PHP_EOL);
     fwrite($newFeed, "<description><![CDATA[$offer->description]]></description>".PHP_EOL);
         
