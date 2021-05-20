@@ -30,15 +30,15 @@ function xmlLog($file_name, $message) {
 
 // подготовка наименования товара, не работает проверка вхождения, доделать. Решить проблему с пустыми значениями.
 
-public function prepareTitle($typePrefix, $brand, $productTitle, $productColor) {
-    if (stripos($productTitle, $brand) === false) {
-        return $typePrefix . ' ' . $brand . ' ' . $productTitle . ', ' . $productColor;
+function prepareTitle($typePrefix, $brand, $productTitle, $productColor) {
+    if (mb_stripos($productTitle, $brand) === false) {
+        $result = $typePrefix . ' ' . $brand . ' ' . $productTitle . ', ' . $productColor;
     }
     else {
-        return $typePrefix . ' ' . $productTitle . ', ' . $productColor;
+        $result = $typePrefix . ' ' . $productTitle . ', ' . $productColor;
     }
+    return trim($result);
 }
-
 
 
 // условия доставки глобальные 
@@ -123,11 +123,11 @@ foreach ($xml->shop->offers->offer as $offer) {
         $typePrefix = $offer->typePrefix;
     }
 
-    $newTitle = prepareTitle($typePrefix, $brand, $productTitle, $productColor);
 
     $id = $offer['id'];
     $groupId = $offer['group_id'];
     
+    $condition = $offer->condition;
 
     // Ц Е Н Ы
     $oldPrice = $offer->oldprice;
@@ -137,8 +137,10 @@ foreach ($xml->shop->offers->offer as $offer) {
     settype($price, "float");
     
     // Себестоимость
-    $purchasePrice = $offer->purchase_price;
-    settype($purchasePrice, "float");
+    if(!empty($offer->purchase_price)) {
+        $purchasePrice = $offer->purchase_price;
+        settype($purchasePrice, "float");
+    }
 
     // добавить проверку наличия секции и ошибку, если нет бренда
     $brand = $offer->vendor;
@@ -181,10 +183,11 @@ foreach ($xml->shop->offers->offer as $offer) {
     }
 
 
+
     // Записываем данные по каждому item
 
     fwrite($newFeed, '<item>'.PHP_EOL);
-    fwrite($newFeed, "<title>$newTitle</title>".PHP_EOL);
+
     fwrite($newFeed, "<link>{$offer->url}</link>".PHP_EOL);
     fwrite($newFeed, "<description><![CDATA[$offer->description]]></description>".PHP_EOL);
         
@@ -205,14 +208,14 @@ foreach ($xml->shop->offers->offer as $offer) {
     else {
         fwrite($newFeed, "<g:price>$price $currency</g:price>".PHP_EOL);
     }
-
+    
     if (isset($purchasePrice)) {
         fwrite($newFeed, "<g:cost_of_goods_sold>$purchasePrice $currency</g:cost_of_goods_sold>".PHP_EOL);
     }
 
     
     // состояние товара: новый/БУ
-    $condition = $offer->condition;
+
     if($condition) {
         if($condition[0]['type'] == 'likenew' || $condition[0]['type'] == 'used') {
             fwrite($newFeed, "<g:condition>used [б/у]</g:condition>".PHP_EOL);
@@ -320,6 +323,10 @@ foreach ($xml->shop->offers->offer as $offer) {
         }
     }
     
+    // Формируем заголовок
+    $newTitle = prepareTitle($typePrefix, $brand, $productTitle, $productColor);
+    fwrite($newFeed, "<title>$newTitle</title>".PHP_EOL);
+
     // товары для взрослых
     if(!empty($xml->adult) and $xml->adult == 'true') {
         fwrite($newFeed, "<g:adult>yes [да]</g:adult>".PHP_EOL);
