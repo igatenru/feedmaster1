@@ -321,7 +321,7 @@ foreach ($xml->shop->offers->offer as $offer) {
     }
 
     
-    // Формируем заголовок
+    // Формируем заголовок **TODO: вставляет цвет к последнему офферу, хотя его там нет.
     $newTitle = prepareTitle($typePrefix, $brand, $productTitle, $productColor);
     fwrite($newFeed, "<title>$newTitle</title>".PHP_EOL);
 
