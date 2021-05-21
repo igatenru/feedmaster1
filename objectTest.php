@@ -1,7 +1,7 @@
 <?php
 
 include_once "inc/file_upload.inc.php";
-include_once "classProduct.php";
+// include_once "classProduct.php";
 
 //используем загруженный файл
 $content = file_get_contents('feeds/'.$file_name); 
@@ -41,6 +41,7 @@ function prepareTitle($typePrefix, $brand, $productTitle, $productColor) {
 }
 
 
+
 // условия доставки глобальные 
 $deliveryOptions = "delivery-options";
 
@@ -55,10 +56,6 @@ else {
 
 
 // подготовка категорий
-function xml_attribute($object, $attribute) {
-    if(isset($object[$attribute]))
-        return (string) $object[$attribute];
-}
 
 foreach ($xml->shop->categories->category as $category) {
 
@@ -322,6 +319,7 @@ foreach ($xml->shop->offers->offer as $offer) {
             fwrite($newFeed, "</g:product_detail>".PHP_EOL);
         }
     }
+
     
     // Формируем заголовок
     $newTitle = prepareTitle($typePrefix, $brand, $productTitle, $productColor);
