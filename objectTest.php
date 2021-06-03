@@ -108,7 +108,7 @@ foreach ($xml->shop->offers->offer as $offer) {
 
     // Объявляем переменные:
 
-    // Если упрощенная модель, используем name. *добавить проверку на наличие вендора в заголовке
+    // Если упрощенная модель, используем name
     if(!empty($offer->name)) {
         $productTitle = $offer->name;
     }

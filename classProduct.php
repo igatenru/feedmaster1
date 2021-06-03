@@ -23,75 +23,177 @@ interface iProduct {
 
 class product implements iProduct {
 
-    //свойства
-		public $id;
-    public $barcode;
-    public $available;
-    public $group_id;
+  //свойства
+	private $id;
+  private $barcode;
+  private $available;
+  private $groupId;
 
-    public $typePrefix;
-    public $model;
-    public $name;
-    public $url;
-    public float $price;
-    public float $oldprice;
-    public float $purchase_rice; 
-    public $currencyId;
-    public $categoryId;
-    public $picture;
+  private $typePrefix;
+  private $model;
+  private $name;
+  private $url;
+  private float $price;
+  private float $oldprice;
+  private float $purchasePrice; 
+  private $currencyId;
+  private $categoryId;
+  private $picture;
 
-    public $store;
-    public $pickup;
-		public $delivery;
-    public $local_delivery_cost;
+  private $store;
+  private $pickup;
+	private $delivery;
+  private $localDeliveryCost;
 
-    public $vendor;
-    public $vendorCode;
-    public $ogrn;
+  private $vendor;
+  private $vendorCode;
+  private $ogrn;
 
-    public $description;
-    public $sales_notes;
-    public $country_of_origin;
-    public float $weight;
-    public $dimensions;
-    public $manufacturer_warranty;
+  private $description;
+  private $salesNotes;
+  private $countryOfOrigin;
+  private float $weight;
+  private $dimensions;
+  private $manufacturerWarranty;
 
-    public $color;
-    public $material;
-    public $size;
-    public $min_qantity;
-    public $condition_type;
-    public $age_group;
-    public $gender;
+  private $color;
+  private $material;
+  private $size;
+  private $minQantity;
+  private $conditionType;
+  private $ageGroup;
+  private $gender;
 
-
-    public array $params;
-    public int $barcodes;
-    public $categories;
-    public array $properties;
+  private array $params;
+  private int $barcodes;
+  private $categories;
+  private array $properties;
   
   
-      public function searchProd($barcode) {
-          ## ищем похожий товар в БД
-      }
-  
-      public function addToDB($id) {
-          ## добавляем товар в базу данных
-      }
-      
-      public function searchProp($id, $property) {
-          ## ищем свойства у конкретного товара
-      }
-  
-      public function addProp($id) {
-          ## добавляем отсутствующие свойства в товар в БД
-      }
-      
-      public function writeToFile ($id) {
-          ## записываем в файл
-      }
-  
+  public function searchProd($barcode)
+  {
+    ## ищем похожий товар в БД
   }
+  
+  public function addToDB($id)
+  {
+    ## добавляем товар в базу данных
+  }
+      
+  public function searchProp($id, $property)
+  {
+    ## ищем свойства у конкретного товара
+  }
+  
+  public function addProp($id)
+  {
+    ## добавляем отсутствующие свойства в товар в БД
+  }
+      
+  public function writeToFile ($id)
+  {
+    ## записываем в файл
+  }
+  
+  
+  // setters
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+
+  public function setBarcode($barcode)
+  {
+    $this->barcode = $barcode;
+  }
+
+  public function setAvailable($available)
+  {
+    $this->available = $available;
+  }
+
+  public function setGroupId($groupId)
+  {
+    $this->groupId = $groupId;
+  }
+
+  public function setTypePrefix($typePrefix)
+  {
+    $this->typePrefix = $typePrefix;
+  }
+
+  public function setModel($model)
+  {
+    $this->model = $model;
+  }
+
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+
+  public function setUrl($url)
+  {
+    $this->url = $url;
+  }
+
+  public function setPrice($price)
+  {
+    $this->price = $price;
+  }
+
+  public function setOldprice($oldprice)
+  {
+    $this->oldprice = $oldprice;
+  }
+
+  public function setPurchasePrice($purchasePrice)
+  {
+    $this->purchasePrice = $purchasePrice;
+  }
+
+  public function setCurrencyId($currencyId)
+  {
+    $this->currencyId = $currencyId;
+  }
+
+  public function setCategoryId($categoryId)
+  {
+    $this->categoryId = $categoryId;
+  }
+
+  public function setPicture($picture)
+  {
+    $this->picture = $picture;
+  }
+
+  public function setStore($store)
+  {
+    $this->store = $store;
+  }
+
+  public function setPickup($pickup)
+  {
+    $this->pickup = $pickup;
+  }
+
+  public function setDelivery($delivery)
+  {
+    $this->delivery = $delivery;
+  }
+
+  public function setLocalDeliveryCost($localDeliveryCost)
+  {
+    $this->localDeliveryCost = $localDeliveryCost;
+  }
+
+
+
+
+
+
+
+}
 
 
 
