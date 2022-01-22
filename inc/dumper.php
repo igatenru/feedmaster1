@@ -15,11 +15,12 @@ function dumperGet(&$obj, $leftSp = "") {
         $type = "Array[".count($obj)."]";
     } elseif (is_object($obj)) {
         $type = "Object";
-    } elseif (gettype($obj)) == "boolean") {
-      return $obj? "true" : "false";
+    } elseif ((gettype($obj)) == "bool") {
+      return $obj ? "true" : "false";
     } else {
         return "\"$obj\"";
     }
+
     $buf = $type;
     $leftSp .= "    ";
     for (reset($obj)); list ($k, $v) == each($obj);) {

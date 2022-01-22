@@ -1,27 +1,30 @@
 <?php
 
-interface iProduct {
+interface dbWorker {
   
   // ищем продукт в БД
   public function searchProd($barcode);
 
   // добавляем товар в базу данных
-  public function addToDB($id);
-
-  // ищем свойства у конкретного товара
-  public function searchProp($id, $property);
+  public function addProductToDB($id);
 
   // добавляем отсутствующие свойства в товар в БД
-  public function addProp($id);
+  public function addPropToDB($id);
 
-  // записываем в файл
-  public function writeToFile ($id);
 
 }
 
+interface other {
 
+ // ищем свойства у конкретного товара
+ public function searchProp($id, $property);
 
-class product implements iProduct {
+ // записываем в файл
+ public function writeToFile ($id);
+
+}
+
+class product {
 
   //свойства
 	private $id;
@@ -34,7 +37,7 @@ class product implements iProduct {
   private $name;
   private $url;
   private float $price;
-  private float $oldprice;
+  private float $oldPrice;
   private float $purchasePrice; 
   private $currencyId;
   private $categoryId;
@@ -69,137 +72,159 @@ class product implements iProduct {
   private $categories;
   private array $properties;
   
-  
-  public function searchProd($barcode)
-  {
-    ## ищем похожий товар в БД
-  }
-  
-  public function addToDB($id)
-  {
-    ## добавляем товар в базу данных
-  }
-      
-  public function searchProp($id, $property)
-  {
-    ## ищем свойства у конкретного товара
-  }
-  
-  public function addProp($id)
-  {
-    ## добавляем отсутствующие свойства в товар в БД
-  }
-      
-  public function writeToFile ($id)
-  {
-    ## записываем в файл
-  }
-  
-  
+    
   // setters
   public function setId($id)
   {
     $this->id = $id;
   }
-
   public function setBarcode($barcode)
   {
     $this->barcode = $barcode;
   }
-
   public function setAvailable($available)
   {
     $this->available = $available;
   }
-
   public function setGroupId($groupId)
   {
     $this->groupId = $groupId;
   }
-
   public function setTypePrefix($typePrefix)
   {
     $this->typePrefix = $typePrefix;
   }
-
   public function setModel($model)
   {
     $this->model = $model;
   }
-
   public function setName($name)
   {
     $this->name = $name;
   }
-
   public function setUrl($url)
   {
     $this->url = $url;
   }
-
   public function setPrice($price)
   {
     $this->price = $price;
   }
-
-  public function setOldprice($oldprice)
+  public function setOldPrice($oldprice)
   {
-    $this->oldprice = $oldprice;
+    $this->oldprice = $oldPrice;
   }
-
   public function setPurchasePrice($purchasePrice)
   {
     $this->purchasePrice = $purchasePrice;
   }
-
   public function setCurrencyId($currencyId)
   {
     $this->currencyId = $currencyId;
   }
-
   public function setCategoryId($categoryId)
   {
     $this->categoryId = $categoryId;
   }
-
   public function setPicture($picture)
   {
     $this->picture = $picture;
   }
-
   public function setStore($store)
   {
     $this->store = $store;
   }
-
   public function setPickup($pickup)
   {
     $this->pickup = $pickup;
   }
-
   public function setDelivery($delivery)
   {
     $this->delivery = $delivery;
   }
-
   public function setLocalDeliveryCost($localDeliveryCost)
   {
     $this->localDeliveryCost = $localDeliveryCost;
   }
 
+  // getters
 
-
-
+  public function getId()
+  {
+  return $this->id;
+  }
+  public function getBarcode()
+  {
+  return $this->barcode;
+  }
+  public function getAvailable()
+  {
+  return $this->available;
+  }
+  public function getGroupId()
+  {
+  return $this->groupId;
+  }
+  public function getTypePrefix()
+  {
+  return $this->typePrefix;
+  }
+  public function getModel()
+  {
+  return $this->model;
+  }
+  public function getName()
+  {
+  return $this->name;
+  }
+  public function getUrl()
+  {
+  return $this->url;
+  }
+  public function getPrice()
+  {
+  return $this->price;
+  }
+  public function getOldPrice()
+  {
+  return $this->oldPrice;
+  }
+  public function getPurchasePrice()
+  {
+  return $this->purchasePrice;
+  }
+  public function getCurrencyId()
+  {
+  return $this->currencyId;
+  }
+  public function getCategoryId()
+  {
+  return $this->categoryId;
+  }
+  public function getPicture()
+  {
+  return $this->picture;
+  }
+  public function getStore()
+  {
+  return $this->store;
+  }
+  public function getPickup()
+  {
+  return $this->pickup;
+  }
+  public function getDelivery()
+  {
+  return $this->delivery;
+  }
+  public function getLocalDeliveryCost()
+  {
+  return $this->localDeliveryCost;
+  }
 
 
 
 }
-
-
-
-
-
-
 
 
 ?>
