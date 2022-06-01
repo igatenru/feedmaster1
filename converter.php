@@ -20,13 +20,14 @@ $timeStart = (float) microtime();
 //считаем кол-во офферов
 $prodTotal = $xml->shop->offers->offer->count();
 echo "<h3>Всего товаров загружено: $prodTotal</h3>";
-xmlLog($file_name, "Всего товаров загружено: $prodTotal.");
+//xmlLog($file_name, "Всего товаров загружено: $prodTotal.");
 
 //считаем кол-во категорий
 $catTotal = $xml->shop->categories->category->count();
 echo "<h3>Всего категорий загружено: $catTotal</h3>";
-xmlLog($file_name, "Всего категорий загружено: $catTotal.");
+//xmlLog($file_name, "Всего категорий загружено: $catTotal.");
 
+echo ("</br><a href='feeds/google/gf_$file_name'>Ссылка на скачивание нового фида</a></br>");
 echo "</br></br>";
 
 // логируем сообщения 
@@ -48,7 +49,7 @@ if (!empty($xml->shop->$deliveryOptions))
 }
 else
 {
-    xmlLog($file_name, "Global delivery options isn't set.");
+    echo("Global delivery options isn't set.</br>");
 }
 
 
@@ -106,16 +107,6 @@ foreach ($xml->shop->offers->offer as $offer)
 {
 
     // Объявляем переменные:
-
-    // Если упрощенная модель, используем name
-    if (!empty($offer->name))
-    {
-        $productTitle = $offer->name;
-    }
-    else
-    {
-        $productTitle = $offer->model;
-    }
 
     if (!empty($offer->typePrefix))
     {
@@ -177,7 +168,7 @@ foreach ($xml->shop->offers->offer as $offer)
     }
     else
     {
-        xmlLog($file_name, "Local delivery options isn't set for offer $id.");
+        echo("Local delivery options isn't set for offer $id.</br>");
     }
     
     if (!empty($offer->sales_notes))
@@ -187,7 +178,7 @@ foreach ($xml->shop->offers->offer as $offer)
     }
     else
     {
-        xmlLog($file_name, "Sales notes isn't set for offer $id.");
+        echo("Sales notes isn't set for offer $id.</br>");
     }
 
 
@@ -214,6 +205,7 @@ foreach ($xml->shop->offers->offer as $offer)
         $saleEnd = date('Y-m-d', strtotime("+1 week"));
         $saleDate = $saleStart . "T13:00+0300/" . $saleEnd . "T13:00+0300";
         fwrite($newFeed, "<g:sale_price_effective_date>$saleDate</g:sale_price_effective_date>".PHP_EOL);
+        echo("Устанавливаю интревал акции old price для товара $id.</br>");
     }
     else
     {
@@ -353,9 +345,37 @@ foreach ($xml->shop->offers->offer as $offer)
     }
 
     
-    // Формируем заголовок **TODO: вставляет цвет к последнему офферу, хотя его там нет.
-    $newTitle = prepareTitle($typePrefix, $brand, $productTitle, $productColor);
+    // Формируем заголовок **TODO: если цвета нет -- Warning + добавляется цввет из предыдущего товара с цветом.
+    
+    // Если упрощенная модель, используем name
+    if (!empty($offer->name))
+    {
+        $newTitle = $offer->name;
+        echo("Найдена секция name для товара $id, использую в качестве основного названия.</br>");
+    }
+    else
+    {
+        $productTitle = $offer->model;
+
+        if (isset($productColor))
+        {
+            $property = $productColor;
+        }
+        elseif (isset($productSize))
+        {
+            $property = $productSize;
+        }
+        else
+        {
+            $property = '';
+        }
+
+        $newTitle = prepareTitle($typePrefix, $brand, $productTitle, $property);
+        echo("Улучшаю название товара $id...</br></br>");
+    }
+
     fwrite($newFeed, "<title>$newTitle</title>".PHP_EOL);
+
 
     // товары для взрослых
     if (!empty($xml->adult) and $xml->adult == 'true')
@@ -434,7 +454,10 @@ foreach ($xml->shop->offers->offer as $offer)
     
 
     fwrite($newFeed, '</item>'.PHP_EOL);
+
+    unset($productColor, $productSize);
 }
+
 fwrite($newFeed, '</channel>'.PHP_EOL);
 fwrite($newFeed, '</rss>'.PHP_EOL);
 
@@ -445,8 +468,26 @@ $timeEnd = (float) microtime();
 $timeElapsed = $timeEnd - $timeStart;
 
 echo "Time elapsed: $timeElapsed sec.<br><br>";
-xmlLog($file_name, "Time elapsed: $timeElapsed sec.");
+//xmlLog($file_name, "Time elapsed: $timeElapsed sec.");
 echo "<a href='feeds/google/gf_$file_name'>Ссылка на скачивание нового фида</a>";
+ 
+$file = "feeds/google/gf_$file_name";
+
+/*
+if (file_exists($file))
+{
+    ob_start();
+    header('Content-Description: File Transfer');
+    header('Content-Type: application/octet-stream');
+    header('Content-Disposition: attachment; filename=' . basename($file));
+    header('Content-Transfer-Encoding: binary');
+    header('Content-Length: ' . filesize($file));
+ 
+    readfile($file);
+    ob_end_flush();
+    exit();
+}
+*/
 
 ?>
 
