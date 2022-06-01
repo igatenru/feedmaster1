@@ -8,8 +8,9 @@ $productColor = 'белый';
 */
 
 // levenshtein() -- использовать для сравнения слов.
+// добавить проверки <name>
 
-function prepareTitle($typePrefix, $brand, $productTitle, $productColor): string
+function prepareTitle($typePrefix, $brand, $productTitle, $property): string
 {
     $readyTitle = "";
 
@@ -27,9 +28,9 @@ function prepareTitle($typePrefix, $brand, $productTitle, $productColor): string
         $readyTitle .= " $productTitle";
     }
 
-    if (! empty($productColor))
+    if (! empty($property))
     {
-        $readyTitle .= ", $productColor";
+        $readyTitle .= ", $property";
     }
 
     return trim($readyTitle);
