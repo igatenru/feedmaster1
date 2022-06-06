@@ -12,7 +12,7 @@ include_once "inc/file_upload.inc.php";
 include_once "inc/prepareTitle.func.php";
 
 //используем загруженный файл
-$content = file_get_contents('feeds/'.$file_name); 
+$content = file_get_contents($upload_dir . $file_name); 
 $xml = new SimpleXMLElement($content);
 
 $timeStart = (float) microtime();
@@ -348,15 +348,16 @@ foreach ($xml->shop->offers->offer as $offer)
     // Формируем заголовок **TODO: если цвета нет -- Warning + добавляется цввет из предыдущего товара с цветом.
     
     // Если упрощенная модель, используем name
+
+    $productTitle = $offer->model;
+
     if (!empty($offer->name))
     {
-        $newTitle = $offer->name;
-        echo("Найдена секция name для товара $id, использую в качестве основного названия.</br>");
+        $productName = $offer->name;
+        $newTitle = $productName;
     }
     else
     {
-        $productTitle = $offer->model;
-
         if (isset($productColor))
         {
             $property = $productColor;
