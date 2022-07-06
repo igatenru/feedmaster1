@@ -19,6 +19,7 @@ include_once "inc/file_upload.inc.php";
     <input type="hidden" name "MAX_FILE_SIZE" value="100000000" />
     <label>Выберите файл YML:</label>
     <input type="file" name="user_feed" />
+    <input type="url" name="feed_url" />
     </br>
     </br>
     <input type="submit" name="uploadBtn" value="Конвертировать в Google XML" />
