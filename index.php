@@ -17,8 +17,9 @@ include_once "inc/file_upload.inc.php";
 <br>
 <form enctype="multipart/form-data" method="post" action="converter.php">  
     <input type="hidden" name "MAX_FILE_SIZE" value="100000000" />
-    <label>Выберите файл YML:</label>
-    <input type="file" name="user_feed" />
+    <label>Выберите файл YML:</label></br></br>
+    <input type="file" name="user_feed" /></br></br>
+    <label>Или укажите ссылку на фид:</label></br></br>
     <input type="url" name="feed_url" />
     </br>
     </br>
