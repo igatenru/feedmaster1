@@ -26,7 +26,7 @@ interface other {
 
 class product {
 
-  //свойства
+  //свойства, характеристики
 	private $id;
   private $barcode;
   private $available;
@@ -110,9 +110,9 @@ class product {
   {
     $this->price = $price;
   }
-  public function setOldPrice($oldprice)
+  public function setOldPrice($oldPrice)
   {
-    $this->oldprice = $oldPrice;
+    $this->oldPrice = $oldPrice;
   }
   public function setPurchasePrice($purchasePrice)
   {
@@ -145,6 +145,18 @@ class product {
   public function setLocalDeliveryCost($localDeliveryCost)
   {
     $this->localDeliveryCost = $localDeliveryCost;
+  }
+  public function setVendor($vendor)
+  {
+    $this->vendor = $vendor;
+  }
+  public function setVendorCode($vendorCode)
+  {
+    $this->vendor = $vendorCode;
+  }
+  public function setOgrn($ogrn)
+  {
+    $this->ogrn = $ogrn;
   }
 
   // getters
